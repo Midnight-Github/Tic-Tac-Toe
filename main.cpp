@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
+#include <string>
 
 int parseInt(std::string number) {
     try {
@@ -221,7 +222,7 @@ int main() {
     const int BOARD_SIZE = 3;
     const int CHAIN_SIZE = 3;
 
-    int board_elems = BOARD_SIZE*BOARD_SIZE;
+    const int board_elems = BOARD_SIZE*BOARD_SIZE;
     std::string get_input;
     int input_position;
     char board[board_elems];
