@@ -219,15 +219,15 @@ bool checkWinner(char *board, int chain_size, int board_size, int pos, char symb
 }
 
 int main() {
-    const int BOARD_SIZE = 3;
-    const int CHAIN_SIZE = 3;
+    const int BOARD_SIZE = 7;
+    const int CHAIN_SIZE = 7;
 
     const int board_elems = BOARD_SIZE*BOARD_SIZE;
     std::string get_input;
     int input_position;
     char board[board_elems];
     int move_count = 0;
-    std::string mode = "pp";
+    std::string mode = "bb";
 
     std::fill(board, board + board_elems, ' ');
     int seed = time(0);
@@ -263,5 +263,10 @@ int main() {
             break;
         }
     }
+
+    std::string a;
+    std::cout << "\nEnter anything to exit: ";
+    std::cin >> a;
+
     return 0;
 }
