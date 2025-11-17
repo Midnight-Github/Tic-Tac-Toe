@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <cmath>
 #include <string>
+#include <ctime>
+#include <vector>
 
 int parseInt(std::string number) {
     try {
@@ -219,22 +221,34 @@ bool checkWinner(char *board, int chain_size, int board_size, int pos, char symb
 }
 
 int main() {
-    const int BOARD_SIZE = 7;
-    const int CHAIN_SIZE = 7;
+    int board_size;
+    int chain_size;
+    std::string mode;
 
-    const int board_elems = BOARD_SIZE*BOARD_SIZE;
     std::string get_input;
     int input_position;
-    char board[board_elems];
-    int move_count = 0;
-    std::string mode = "bb";
 
-    std::fill(board, board + board_elems, ' ');
-    int seed = time(0);
+    std::cout << "Enter board size: ";
+    std::getline(std::cin, get_input);
+    board_size = parseInt(get_input);
+
+    std::cout << "Enter chain size: ";
+    std::getline(std::cin, get_input);
+    chain_size = parseInt(get_input);
+
+    std::cout << "Enter mode (e.g. bb, bp, pb, pp): ";
+    std::getline(std::cin, mode);
+
+    const int board_elems = board_size*board_size;
+    std::vector<char> board(board_elems);
+    int move_count = 0;
+
+    std::fill(board.begin(), board.end(), ' ');
+    int seed = static_cast<int>(time(0));
     srand(seed);
 
     while(true) {
-        drawBoard(board, BOARD_SIZE);
+        drawBoard(board.data(), board_size);
 
         do {
             if(mode[move_count % 2] == 'b') {
@@ -250,15 +264,14 @@ int main() {
 
         board[input_position] = getTurn(move_count);
         move_count++;
-
-        if(checkWinner(board, CHAIN_SIZE, BOARD_SIZE, input_position, board[input_position])) {
-            drawBoard(board, BOARD_SIZE);
+        if(checkWinner(board.data(), chain_size, board_size, input_position, board[input_position])) {
+            drawBoard(board.data(), board_size);
             std::cout << board[input_position] << " Wins!";
             break;
         }
         
         if(move_count >= board_elems) {
-            drawBoard(board, BOARD_SIZE);
+            drawBoard(board.data(), board_size);
             std::cout << "It's a tie!";
             break;
         }
